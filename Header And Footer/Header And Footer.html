@@ -15,7 +15,11 @@
         <div class="topHeader">
 <div class="topHeaderContent">
 <img src="logo.png" alt="logo" id="logo">
-<input type="text" placeholder="Search..">
+<form onsubmit="event.preventDefault();" role="search">
+    <label for="search">Search for stuff</label>
+    <input id="search" type="search" placeholder="Search..." autofocus required />
+    <button type="submit">Go</button>    
+  </form>
 <div class="headerIcon">
     <i class="fa-solid fa-cart-shopping"></i>
 <i class="fa-regular fa-user"></i>
