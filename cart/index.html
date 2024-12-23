@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/cart/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&display=swap" rel="stylesheet">
+  <title>Cart</title>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <div id="cart-items">
+    <p>Loading...</p>
+  </div>
+  <div>
+      <button id="clear-cart">Clear Cart</button>
+  </div>
+<div class="home"><a href="/index.html">Home</a></div>
+  <script >
+    // Function to render cart items
+function renderCartItems() {
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartContainer = document.getElementById("cart-items");
+
+  // Clear the cart container
+  cartContainer.innerHTML = "";
+
+  if (cartItems.length === 0) {
+    cartContainer.innerHTML = "<p>Your cart is empty!</p>";
+    return;
+  }
+
+  // Loop through cart items and display them
+  cartItems.forEach((item, index) => {
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "cart-item";
+
+    itemDiv.innerHTML = `
+      <h4>${item.name}</h4>
+      <p>Price: $${item.price}</p>
+      <button class="remove-item" data-index="${index}">Remove</button>
+    `;
+
+    cartContainer.appendChild(itemDiv);
+  });
+
+  // Add event listeners for "Remove" buttons
+  document.querySelectorAll(".remove-item").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = button.getAttribute("data-index");
+      removeCartItem(index);
+    });
+  });
+}
+
+// Function to remove an item from the cart
+function removeCartItem(index) {
+  let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  cartItems.splice(index, 1); // Remove the item at the specified index
+  localStorage.setItem("cart", JSON.stringify(cartItems)); // Update localStorage
+  renderCartItems(); // Re-render the cart
+}
+
+// Clear cart button functionality
+document.getElementById("clear-cart").addEventListener("click", () => {
+  localStorage.removeItem("cart");
+  renderCartItems();
+});
+
+// Initialize cart items on page load
+renderCartItems();
+
+  </script>
+</body>
+</html>

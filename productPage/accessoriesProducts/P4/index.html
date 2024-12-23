@@ -26,7 +26,8 @@
   <button type="submit">Go</button>    
 </form>
 <div class="headerIcon">
-  <i class="fa-solid fa-cart-shopping"></i>
+  <a href="/cart/index.html"> <i class="fa-solid fa-cart-shopping"></i></a>
+
 <i class="fa-regular fa-user"></i>
 </div>
 </div>
@@ -52,7 +53,8 @@
 
           </h1>
           <p class="pproduct">The Samsung Galaxy Watch 7 combines sleek design with advanced health and fitness tracking features, offering seamless connectivity, a vibrant display, and long battery life, perfect for staying connected and active throughout the day.</p>
-          <button class="product-button">Add to Carst</button>
+          <button class="add-to-cart" data-id="10" data-name="Samsung Galaxy Watch7" data-price="899.99">Add to Cart</button>
+
         </div>
       </div>
       <div class="footer">
@@ -62,4 +64,36 @@
     </div>
 
   </body>
+</html>
+
+
+  <script>
+    // Function to add product to the cart
+function addToCart(product) {
+  // Get the current cart from localStorage or initialize an empty array
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Add the new product to the cart
+  cart.push(product);
+
+  // Save the updated cart back to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert(`${product.name} has been added to your cart!`);
+}
+
+// Add event listeners to "Add to Cart" buttons
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+    const product = {
+      id: button.getAttribute("data-id"),
+      name: button.getAttribute("data-name"),
+      price: button.getAttribute("data-price"),
+    };
+    addToCart(product);
+  });
+});
+
+  </script>
+</body>
 </html>

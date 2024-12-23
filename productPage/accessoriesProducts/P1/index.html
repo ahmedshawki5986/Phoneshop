@@ -26,7 +26,8 @@
     <button type="submit">Go</button>    
   </form>
 <div class="headerIcon">
-    <i class="fa-solid fa-cart-shopping"></i>
+  <a href="/cart/index.html"> <i class="fa-solid fa-cart-shopping"></i></a>
+
 <i class="fa-regular fa-user"></i>
 </div>
 </div>
@@ -50,7 +51,8 @@
           <h1 class="h1product">199.99 $
           </h1>
           <p class="pproduct">AirPods 2 offer a seamless wireless experience with rich sound quality, long-lasting battery life, and easy integration with Apple devices, providing comfort and convenience for everyday use.</p>
-          <button class="product-button">Add to Carst</button>
+          <button class="add-to-cart" data-id="7" data-name="AirBods 2" data-price="199.99">Add to Cart</button>
+
         </div>
       </div>
       <div class="footer">
@@ -60,4 +62,36 @@
     </div>
 
   </body>
+</html>
+
+
+  <script>
+    // Function to add product to the cart
+function addToCart(product) {
+  // Get the current cart from localStorage or initialize an empty array
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Add the new product to the cart
+  cart.push(product);
+
+  // Save the updated cart back to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert(`${product.name} has been added to your cart!`);
+}
+
+// Add event listeners to "Add to Cart" buttons
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+    const product = {
+      id: button.getAttribute("data-id"),
+      name: button.getAttribute("data-name"),
+      price: button.getAttribute("data-price"),
+    };
+    addToCart(product);
+  });
+});
+
+  </script>
+</body>
 </html>
